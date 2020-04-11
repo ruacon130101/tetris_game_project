@@ -1,1 +1,1 @@
-# tetris_game_project
+Game-Project: Tetris game, là game gồm các block gạch tạo từ 4 ô vuông 1x1 có các hình dạng chữ I, J, L, S, Z, O, T; phím A để dịch block hiện tại sang trái 1 ô, phím D để dịch sang phải và phím S để block xuống nhanh hơn, phím SPACE để xoay các block theo 3 hướng còn lại, khi 1 hàng trên bảng bị lấp kín sẽ bị xóa đi

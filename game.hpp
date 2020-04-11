@@ -5,6 +5,7 @@
 class Play{
     public:
       Play();
+      void quitSDL();
       bool tick();
     private:
       Play(const Play &);

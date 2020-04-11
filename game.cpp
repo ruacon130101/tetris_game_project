@@ -9,7 +9,7 @@ Play::Play():
 {
     SDL_CreateWindowAndRenderer(width, height, 0, &window, &renderer);
 }
-void quitSDL(SDL_Window* window, SDL_Renderer* renderer){
+void Play::quitSDL(){
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   SDL_Quit();
@@ -70,5 +70,4 @@ bool Play::tick(){
               SDL_RenderPresent(renderer);
             return true;
             }
-            quitSDL(window,renderer);
 };

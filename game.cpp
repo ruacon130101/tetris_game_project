@@ -5,7 +5,7 @@
 #define height 800
 using namespace std;
 Play::Play():
-    tetromino{static_cast<Action::Type>(rand() % 7)},
+    tetromino{static_cast<Action::Type_Block>(rand() % 7)},
     moveTime(SDL_GetTicks())
     {
         if (SDL_Init(SDL_INIT_VIDEO) != 0) cout << "Couldn't initialize" << "\n" << SDL_GetError();
@@ -38,7 +38,7 @@ void Play::tick(){
                             {
                                 Action t = tetromino;
                                 t.move(0, 1);
-                                if (!well_.check(t))
+                                if (!well_.checkCollision(t))
                                   tetromino = t;
                             }
                             break;
@@ -46,7 +46,7 @@ void Play::tick(){
                               {
                                 Action t = tetromino;
                                 t.move(1, 0);
-                                if (!well_.check(t))
+                                if (!well_.checkCollision(t))
                                   tetromino = t;
                               }
                               break;
@@ -54,7 +54,7 @@ void Play::tick(){
                               {
                                 Action t = tetromino;
                                 t.move(-1, 0);
-                                if (!well_.check(t))
+                                if (!well_.checkCollision(t))
                                   tetromino = t;
                               }
                               break;
@@ -62,7 +62,7 @@ void Play::tick(){
                               {
                                 Action t = tetromino;
                                 t.rotation();
-                                if (!well_.check(t))
+                                if (!well_.checkCollision(t))
                                   tetromino = t;
                               }
                               break;
@@ -75,15 +75,15 @@ void Play::tick(){
               tetromino.draw(renderer);
               if(SDL_GetTicks() > moveTime)
               {
-                  moveTime += 1000;
+                  moveTime += 700;
                   Action t = tetromino;
                   t.move(0, 1);
                   //kt(t);
-                  if(well_.check(t))
+                  if(well_.checkCollision(t))
                   {
-                        well_.deleteLastRow(tetromino);
-                        tetromino = Action{static_cast<Action::Type>(rand()%7)};
-                        if(well_.check(tetromino))
+                        well_.deleteRow(tetromino);
+                        tetromino = Action{static_cast<Action::Type_Block>(rand()%7)};
+                        if(well_.checkCollision(tetromino))
                         {
                             //well_ = Ahihi();
                             //return false;

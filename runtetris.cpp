@@ -20,7 +20,7 @@ void Ahihi::draw(SDL_Renderer* renderer)
 }
 
 
-bool Ahihi::check(const Action &t) const
+bool Ahihi::checkCollision(const Action &t) const
 {
   for(int x = 0;x < 4;++x)
   {
@@ -35,7 +35,7 @@ bool Ahihi::check(const Action &t) const
   }
   return false;
 }
-void Ahihi::deleteLastRow(const Action &t)
+void Ahihi::deleteRow(const Action &t)
 {
       for(int x = 0;x < 4;++x)
       {

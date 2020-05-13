@@ -1,7 +1,7 @@
 #include "movement.hpp"
 
 Action::Action(Type type):
-  type1(type),x1(3), y1(0){}
+  type1(type),x1(3), y1(0), goc(0){}
 
 void Action::draw(SDL_Renderer* renderer)
 {
@@ -11,28 +11,26 @@ void Action::draw(SDL_Renderer* renderer)
       if (checkBlock(x, y))
       {
         //SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-        SDL_Rect fillRect = {(x + x1) * 33 + 1, (y + y1) * 33 + 1, 31, 31};
+        SDL_Rect fillRect = {(x+x1)*40+1, (y+y1)*40+1, 38, 38};
         SDL_RenderFillRect(renderer, &fillRect);
       }
   }
 }
-
-void Action::move(int dx, int dy)
-{
+void Action::rotation(){
+    goc = (goc+3)%4;
+}
+void Action::move(int dx, int dy){
   x1 += dx;
   y1 += dy;
 }
-int Action::x() const
-{
+int Action::x() const{
   return x1;
 }
-int Action::y() const
-{
+int Action::y() const{
   return y1;
 }
-int Action::checkBlock(int x, int y) const
-{
-  const char *Shapes[][4] = {
+bool Action::checkBlock(int x, int y) const{
+  static const char *Shapes[][4] = {
     {
       " #  "
       " #  "
@@ -160,5 +158,6 @@ int Action::checkBlock(int x, int y) const
       "    ",
     },
   };
-  return Shapes[type1][0][x + y * 4] == '#';
+  return Shapes[type1][goc][x+y*4] == '#';
 }
+

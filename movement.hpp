@@ -3,8 +3,11 @@
 
 class Action{
     public:
-      enum Type {I, J, L, O, S, T, Z};
-      Action(Type);
+      enum Type_Block
+      {
+          I, L_Reverse, L, Square, N_Reverse, T, N
+      };
+      Action(Type_Block);
       void draw(SDL_Renderer*);
       void rotation();
       void move(int dx, int dy);
@@ -12,6 +15,6 @@ class Action{
       int y() const;
       bool checkBlock(int x, int y) const;
     private:
-      Type type1;
+      Type_Block type1;
       int x1, y1, goc;
 };

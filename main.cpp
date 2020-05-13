@@ -3,6 +3,7 @@
 #include "movement.hpp"
 #include <iostream>
 #include<string>
+#include<ctime>
 using namespace std;
 const int SCREEN_WIDTH = 800/2;
 const int SCREEN_HEIGHT = 800;
@@ -38,6 +39,7 @@ void initSDL(SDL_Window* &window, SDL_Renderer* &renderer,
     SDL_RenderSetLogicalSize(renderer, screenWidth, screenHeight);
 }
 int main(int argc, char **argv) {
+    srand(time(0));
     /*SDL_Window* window;
     SDL_Renderer* renderer;
     initSDL(window, renderer, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);*/

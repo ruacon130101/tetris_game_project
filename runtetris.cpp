@@ -10,7 +10,6 @@ void Ahihi::draw(SDL_Renderer* renderer)
     {
       if(block[x][y] == 1)
       {
-        //SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
         SDL_Rect fillRect = { x*40+1, y*40+1, 38, 38};
         SDL_RenderFillRect(renderer, &fillRect);
       }
@@ -60,7 +59,7 @@ void Ahihi::deleteRow(const Action &t)
         {
             for(int y2 = y - 1;y2 >= 0;--y2)
                 for(int x = 0;x < W;++x) block[x][y2 + 1] = block[x][y2];
-            for(int x = 0;x < W;++x) block[x][0] = 0;
+            //for(int x = 0;x < W;++x) block[x][0] = 0;
         }
       }
 }

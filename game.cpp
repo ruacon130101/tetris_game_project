@@ -78,7 +78,6 @@ void Play::tick(){
                   moveTime += 700;
                   Action t = tetromino;
                   t.move(0, 1);
-                  //kt(t);
                   if(well_.checkCollision(t))
                   {
                         well_.deleteRow(tetromino);

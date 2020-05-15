@@ -5,7 +5,7 @@
 #define height 800
 using namespace std;
 Play::Play():
-    tetromino{static_cast<Action::Type_Block>(rand() % 7)},
+    tetriss{static_cast<Action::Type_Block>(rand()%7)},
     moveTime(SDL_GetTicks())
     {
         if (SDL_Init(SDL_INIT_VIDEO) != 0) cout << "Couldn't initialize" << "\n" << SDL_GetError();
@@ -36,34 +36,34 @@ void Play::tick(){
                         {
                             case SDLK_s:
                             {
-                                Action t = tetromino;
+                                Action t = tetriss;
                                 t.move(0, 1);
-                                if (!well_.checkCollision(t))
-                                  tetromino = t;
+                                if (!runte.checkCollision(t))
+                                  tetriss = t;
                             }
                             break;
                             case SDLK_d:
                               {
-                                Action t = tetromino;
+                                Action t = tetriss;
                                 t.move(1, 0);
-                                if (!well_.checkCollision(t))
-                                  tetromino = t;
+                                if (!runte.checkCollision(t))
+                                  tetriss = t;
                               }
                               break;
                             case SDLK_a:
                               {
-                                Action t = tetromino;
+                                Action t = tetriss;
                                 t.move(-1, 0);
-                                if (!well_.checkCollision(t))
-                                  tetromino = t;
+                                if (!runte.checkCollision(t))
+                                  tetriss = t;
                               }
                               break;
                             case SDLK_SPACE:
                               {
-                                Action t = tetromino;
+                                Action t = tetriss;
                                 t.rotation();
-                                if (!well_.checkCollision(t))
-                                  tetromino = t;
+                                if (!runte.checkCollision(t))
+                                  tetriss = t;
                               }
                               break;
                         }
@@ -71,20 +71,20 @@ void Play::tick(){
                 }
               SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xff);
               SDL_RenderClear(renderer);
-              well_.draw(renderer);
-              tetromino.draw(renderer);
+              runte.draw(renderer);
+              tetriss.draw(renderer);
               if(SDL_GetTicks() > moveTime)
               {
                   moveTime += 700;
-                  Action t = tetromino;
+                  Action t = tetriss;
                   t.move(0, 1);
-                  if(well_.checkCollision(t))
+                  if(runte.checkCollision(t))
                   {
-                        well_.deleteRow(tetromino);
-                        tetromino = Action{static_cast<Action::Type_Block>(rand()%7)};
-                        if(well_.checkCollision(tetromino))
+                        runte.deleteRow(tetriss);
+                        tetriss = Action{static_cast<Action::Type_Block>(rand()%7)};
+                        if(runte.checkCollision(tetriss))
                         {
-                            //well_ = Ahihi();
+                            //runte = Init();
                             //return false;
                             //cout << "You Lose";
                             //exit(0);
@@ -141,7 +141,7 @@ void Play::tick(){
                             SDL_Quit();
                         }
                    }
-                    else tetromino = t;
+                    else tetriss = t;
               }
               SDL_RenderPresent(renderer);
             }

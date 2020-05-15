@@ -1,5 +1,6 @@
 #include "movement.hpp"
-
+#include <iostream>
+using namespace std;
 Action::Action(Type_Block type):
   type1(type),x1(3), y1(0), goc(0){}
 void Action::draw(SDL_Renderer* renderer){
@@ -33,8 +34,7 @@ void Action::draw(SDL_Renderer* renderer){
       {
           if (checkBlock(x, y))
           {
-        //SDL_Rect fillRect = { SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-            SDL_Rect fillRect = {(x+x1)*40+1, (y+y1)*40+1, 38, 38};
+            SDL_Rect fillRect = {(x+x1)*40+1, (y+y1)*40+1, 36, 36};
             SDL_RenderFillRect(renderer, &fillRect);
           }
       }
@@ -182,6 +182,7 @@ bool Action::checkBlock(int x, int y) const{
       "    ",
     },
   };
-  return Tetris[type1][goc][x+y*4] == '#';
+  if(Tetris[type1][goc][x+y*4] == '#') return true;
+  else return false;
 }
 

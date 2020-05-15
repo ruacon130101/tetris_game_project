@@ -1,25 +1,25 @@
 #include "runtetris.hpp"
-Ahihi::Ahihi():block{{0}}{}
+Init::Init():block{{0}}{}
 
-void Ahihi::draw(SDL_Renderer* renderer)
+void Init::draw(SDL_Renderer* renderer)
 {
-  SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
+  SDL_SetRenderDrawColor(renderer, 133, 0, 0, 133);
   for(int x = 0;x < W;++x)
   {
     for(int y = 0;y < H;++y)
     {
       if(block[x][y] == 1)
       {
-        SDL_Rect fillRect = { x*40+1, y*40+1, 38, 38};
+        SDL_Rect fillRect = { x*40+1, y*40+1, 36, 36};
         SDL_RenderFillRect(renderer, &fillRect);
       }
-      else SDL_RenderDrawPoint(renderer, x*40+20, y*40+20);
+      else if(block[x][y] != 1) SDL_RenderDrawPoint(renderer, x*40+20, y*40+20);
     }
   }
 }
 
 
-bool Ahihi::checkCollision(const Action &t) const
+bool Init::checkCollision(const Action &t) const
 {
   for(int x = 0;x < 4;++x)
   {
@@ -34,7 +34,7 @@ bool Ahihi::checkCollision(const Action &t) const
   }
   return false;
 }
-void Ahihi::deleteRow(const Action &t)
+void Init::deleteRow(const Action &t)
 {
       for(int x = 0;x < 4;++x)
       {
@@ -59,7 +59,6 @@ void Ahihi::deleteRow(const Action &t)
         {
             for(int y2 = y - 1;y2 >= 0;--y2)
                 for(int x = 0;x < W;++x) block[x][y2 + 1] = block[x][y2];
-            //for(int x = 0;x < W;++x) block[x][0] = 0;
         }
       }
 }

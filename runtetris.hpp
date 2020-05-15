@@ -1,9 +1,9 @@
 #include "movement.hpp"
 #include <SDL.h>
 
-class Ahihi{
+class Init{
     public:
-      Ahihi();
+      Init();
       enum
       {
           W = 10, H = 20

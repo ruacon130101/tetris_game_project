@@ -4,6 +4,7 @@
 #include <iostream>
 #include<string>
 #include<ctime>
+#include<SDL_mixer.h>
 using namespace std;
 const int SCREEN_WIDTH = 800/2;
 const int SCREEN_HEIGHT = 800;
@@ -38,6 +39,7 @@ void initSDL(SDL_Window* &window, SDL_Renderer* &renderer,
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     SDL_RenderSetLogicalSize(renderer, screenWidth, screenHeight);
 }
+static const char *MY_COOL_MP3 = "ahihi.mp3";
 int main(int argc, char **argv) {
     srand(time(0));
     /*SDL_Window* window;
@@ -106,16 +108,50 @@ int main(int argc, char **argv) {
 		}
 		SDL_RenderCopy(renderer, texture, &sourceRect, NULL);
 		SDL_RenderPresent(renderer);
-		while(true)
+		int result = 0;
+        int flags = MIX_INIT_MP3;
+
+        if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+            printf("Failed to init SDL\n");
+            exit(1);
+        }
+        if (flags != (result = Mix_Init(flags))) {
+            printf("Could not initialize mixer (result: %d).\n", result);
+            printf("Mix_Init: %s\n", Mix_GetError());
+            exit(1);
+        }
+
+        Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
+        Mix_Music *music = Mix_LoadMUS(MY_COOL_MP3);
+        Mix_PlayMusic(music, 1);
+        while (!SDL_QuitRequested()) {
+            SDL_Delay(250);
+        while(true)
+            {
+                if ( SDL_WaitEvent(&e) == 0) continue;
+                if (e.type == SDL_QUIT) break;
+                if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) break;
+                if (e.type == SDL_MOUSEBUTTONDOWN)
+                {
+                    //Mix_PlayMusic(music, 1);
+                    game.tick();
+            }
+    }
+    Mix_FreeMusic(music);
+		/*while(true)
         {
             if ( SDL_WaitEvent(&e) == 0) continue;
             if (e.type == SDL_QUIT) break;
             if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) break;
-            if (e.type == SDL_MOUSEBUTTONDOWN) game.tick();
-        }
+            if (e.type == SDL_MOUSEBUTTONDOWN)
+            {
+                //Mix_PlayMusic(music, 1);
+                game.tick();
+        }*/
 	}
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
+}
 }
 

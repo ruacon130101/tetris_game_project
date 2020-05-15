@@ -11,7 +11,7 @@ class Play{
       Play(const Play &);
       SDL_Window* window;
       SDL_Renderer* renderer;
-      Ahihi well_;
-      Action tetromino;
+      Init runte;
+      Action tetriss;
       Uint32 moveTime;
 };
